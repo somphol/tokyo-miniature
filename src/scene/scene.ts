@@ -99,9 +99,10 @@ export function createCity(container: HTMLDivElement, options: CityOptions): Cit
   scene.environmentIntensity = 0.3
   pmrem.dispose()
 
-  const camera = new THREE.PerspectiveCamera(38, container.clientWidth / container.clientHeight, 0.05, 220)
-  const initial = INTRO.position.clone()
-  const initialTarget = INTRO.target.clone()
+  const narrow = container.clientWidth < 700
+  const camera = new THREE.PerspectiveCamera(narrow ? 46 : 38, container.clientWidth / container.clientHeight, 0.05, 220)
+  const initial = INTRO.position.clone().multiplyScalar(narrow ? 1.45 : 1)
+  const initialTarget = INTRO.target.clone().add(new THREE.Vector3(0, narrow ? 0.4 : 0, narrow ? 2 : 0))
   const debug = options.view ? VIEWS[options.view] : undefined
   camera.position.copy(debug ? new THREE.Vector3().fromArray(debug.position) : initial)
   const controls = new OrbitControls(camera, renderer.domElement)

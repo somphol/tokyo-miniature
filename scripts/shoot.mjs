@@ -50,6 +50,13 @@ await embed.waitForFunction(() => window.__scene?.ready === true, null, { timeou
 await embed.evaluate(() => window.__scene.step(2))
 await embed.screenshot({ path: 'shots/embed-345.png' })
 
+const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true })
+await mobile.goto(`${base}?capture=1&lang=ja&quality=low`, { waitUntil: 'load' })
+await mobile.waitForFunction(() => window.__scene?.ready === true, null, { timeout: 120000 })
+await mobile.evaluate(() => window.__scene.step(2))
+await mobile.waitForTimeout(500)
+await mobile.screenshot({ path: 'shots/mobile-390.png' })
+
 await browser.close()
 server.close()
-console.log('shots: overview-day, 8 landmarks, overview-night, embed-345')
+console.log('shots: overview-day, 8 landmarks, overview-night, embed-345, mobile-390')

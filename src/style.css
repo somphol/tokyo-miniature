@@ -602,9 +602,7 @@ body[data-layout='compact'] .square {
   height: 32px;
 }
 body[data-layout='compact'] .location {
-  left: 12px;
-  bottom: 132px;
-  font-size: 8px;
+  display: none;
 }
 body[data-layout='compact'] .coordinate {
   display: none;
@@ -665,11 +663,7 @@ body[data-layout='compact'] footer {
   display: none;
 }
 body[data-layout='compact'] .hint {
-  position: absolute;
-  left: 12px;
-  bottom: 50px;
-  font-size: 8.5px;
-  max-width: 60vw;
+  display: none;
 }
 body[data-layout='compact'] .compass {
   display: none;
