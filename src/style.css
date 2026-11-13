@@ -1,0 +1,704 @@
+:root {
+  font-family: "Avenir Next", "Helvetica Neue", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  color: #1d2a2e;
+  background: #e7e2d5;
+  font-synthesis: none;
+  --ink: #1d2a2e;
+  --muted: #6c7773;
+  --paper: #f3efe4;
+  --paper-strong: #faf7ee;
+  --line: rgba(29, 42, 46, 0.16);
+  --accent: #c94b3a;
+  --green: #3f6b52;
+  --panel: rgba(243, 239, 228, 0.9);
+  --shadow: 0 18px 40px rgba(30, 37, 35, 0.12);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+body {
+  overflow: hidden;
+  background: #e7e2d5;
+}
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+a {
+  color: inherit;
+}
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background: #dfe9ea;
+  transition: background 600ms ease;
+}
+.app.night {
+  background: #0b1424;
+  --ink: #edf1e8;
+  --muted: #a4b0ab;
+  --paper: #16212d;
+  --paper-strong: #1c2936;
+  --line: rgba(238, 242, 232, 0.18);
+  --panel: rgba(16, 26, 38, 0.9);
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+}
+.canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 34px 0;
+  pointer-events: none;
+}
+.brand,
+.edition {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.brand-name {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+.brand-slash {
+  color: var(--accent);
+}
+.brand-divider {
+  width: 26px;
+  height: 1px;
+  background: var(--line);
+}
+.campaign {
+  color: var(--muted);
+}
+.edition {
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-weight: 500;
+  font-size: 11px;
+}
+.intro {
+  position: absolute;
+  z-index: 4;
+  left: 34px;
+  top: 17%;
+  width: min(330px, 28vw);
+  padding: 18px 0;
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.eyebrow span {
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+}
+.intro h1 {
+  margin: 18px 0 20px;
+  font-family: "Iowan Old Style", "Palatino Linotype", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: clamp(58px, 5.6vw, 92px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.87;
+  color: var(--ink);
+}
+.intro h1 em {
+  font-style: italic;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+}
+.intro h1,
+.intro p,
+.intro .explore-copy,
+.intro .eyebrow {
+  text-shadow: 0 1px 0 var(--paper), 0 0 14px var(--paper);
+}
+.intro p {
+  margin: 0;
+  max-width: 30ch;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.75;
+}
+.intro-line {
+  width: 46px;
+  height: 1px;
+  margin: 22px 0 12px;
+  background: var(--accent);
+}
+.explore-copy {
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.top-controls {
+  position: absolute;
+  z-index: 8;
+  top: 72px;
+  right: 34px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.mode-switch {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-strong);
+  box-shadow: var(--shadow);
+}
+.mode-switch button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 180ms ease, color 180ms ease;
+}
+.mode-switch button.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.square {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--paper-strong);
+  box-shadow: var(--shadow);
+  transition: transform 160ms ease, background 160ms ease;
+}
+.square:hover,
+.square.selected {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-1px);
+}
+.location {
+  position: absolute;
+  z-index: 5;
+  left: 34px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(63, 107, 82, 0.14);
+}
+.night .live-dot {
+  background: #88d6a6;
+}
+.coordinate {
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+}
+.view-tools {
+  position: absolute;
+  z-index: 8;
+  right: 34px;
+  bottom: 108px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-strong);
+  box-shadow: var(--shadow);
+}
+.view-tools button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--ink);
+}
+.view-tools button:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.view-tools div {
+  height: 1px;
+  margin: 1px 6px;
+  background: var(--line);
+}
+.compass {
+  position: absolute;
+  z-index: 5;
+  right: 38px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  pointer-events: none;
+  opacity: 0.85;
+}
+.compass svg {
+  color: var(--ink);
+}
+.landmark-info {
+  position: absolute;
+  z-index: 7;
+  right: 34px;
+  top: 126px;
+  width: 292px;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--panel);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+  animation: rise 320ms cubic-bezier(0.22, 0.8, 0.2, 1);
+}
+.landmark-info > button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--muted);
+}
+.landmark-info > button:hover {
+  background: var(--line);
+  color: var(--ink);
+}
+.landmark-info h2 {
+  margin: 10px 0 10px;
+  font-family: "Iowan Old Style", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.landmark-info p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+.landmark-bar {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  width: min(1240px, calc(100vw - 150px));
+  padding: 7px 8px 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+}
+.landmark-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 12px;
+  border-right: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.landmark-buttons {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.landmark-buttons button {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px 9px;
+  border-radius: 2px;
+  color: var(--muted);
+  font-size: 10.5px;
+  white-space: nowrap;
+  transition: background 160ms ease, color 160ms ease;
+}
+.landmark-buttons button:hover {
+  background: var(--line);
+  color: var(--ink);
+}
+.landmark-buttons button.chosen {
+  background: var(--ink);
+  color: var(--paper);
+}
+.landmark-buttons button.chosen .landmark-num {
+  color: var(--accent);
+}
+.landmark-num {
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+.landmark-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.landmark-buttons svg {
+  opacity: 0;
+  transition: opacity 160ms ease;
+  align-self: center;
+}
+.landmark-buttons button:hover svg,
+.landmark-buttons button.chosen svg {
+  opacity: 0.8;
+}
+footer {
+  position: absolute;
+  z-index: 5;
+  left: 34px;
+  right: 34px;
+  bottom: 0;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+.collectible {
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.loading {
+  position: absolute;
+  z-index: 20;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.loading span {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+.error {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 320px;
+  padding: 18px 22px;
+  background: var(--paper-strong);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.capture-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 16, 22, 0.62);
+  backdrop-filter: blur(4px);
+  animation: fade 200ms ease;
+}
+.capture-panel {
+  position: relative;
+  width: min(680px, calc(100vw - 40px));
+  padding: 10px;
+  background: var(--paper-strong);
+  box-shadow: var(--shadow);
+}
+.capture-panel > button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(20, 28, 30, 0.65);
+  color: #fff;
+}
+.capture-panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.capture-panel > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 4px 2px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.capture-panel a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+.toast {
+  position: absolute;
+  z-index: 35;
+  left: 50%;
+  bottom: 130px;
+  transform: translateX(-50%);
+  padding: 9px 15px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  box-shadow: var(--shadow);
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+body[data-layout='compact'] header {
+  padding: 14px 16px 0;
+}
+body[data-layout='compact'] .brand-divider,
+body[data-layout='compact'] .brand-slash,
+body[data-layout='compact'] .brand-lab,
+body[data-layout='compact'] .edition {
+  display: none;
+}
+body[data-layout='compact'] .brand-name {
+  font-size: 10px;
+}
+body[data-layout='compact'] .top-controls {
+  top: 12px;
+  right: 12px;
+}
+body[data-layout='compact'] .mode-switch button {
+  padding: 6px 10px;
+  font-size: 9px;
+}
+body[data-layout='compact'] .square {
+  width: 32px;
+  height: 32px;
+}
+body[data-layout='compact'] .location {
+  left: 12px;
+  bottom: 132px;
+  font-size: 8px;
+}
+body[data-layout='compact'] .coordinate {
+  display: none;
+}
+body[data-layout='compact'] .view-tools {
+  right: 12px;
+  bottom: 140px;
+}
+body[data-layout='compact'] .landmark-bar {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: none;
+  width: 100%;
+  padding: 5px 7px;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 0;
+  gap: 5px;
+  overflow-x: auto;
+}
+body[data-layout='compact'] .landmark-label {
+  display: none;
+}
+body[data-layout='compact'] .landmark-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+}
+body[data-layout='compact'] .landmark-buttons::-webkit-scrollbar {
+  display: none;
+}
+body[data-layout='compact'] .landmark-buttons button {
+  padding: 8px 6px;
+  font-size: 9px;
+  justify-content: center;
+}
+body[data-layout='compact'] .landmark-buttons button .landmark-num,
+body[data-layout='compact'] .landmark-buttons button svg {
+  display: none;
+}
+body[data-layout='compact'] .landmark-info {
+  left: 12px;
+  right: 12px;
+  top: auto;
+  bottom: 136px;
+  width: auto;
+  padding: 16px 18px;
+}
+body[data-layout='compact'] .landmark-info h2 {
+  font-size: 21px;
+}
+body[data-layout='compact'] .landmark-info p {
+  font-size: 10.5px;
+}
+body[data-layout='compact'] footer {
+  display: none;
+}
+body[data-layout='compact'] .hint {
+  position: absolute;
+  left: 12px;
+  bottom: 50px;
+  font-size: 8.5px;
+  max-width: 60vw;
+}
+body[data-layout='compact'] .compass {
+  display: none;
+}
+body[data-layout='compact'] .toast {
+  bottom: 92px;
+}
+
+@media (max-height: 700px) and (min-width: 900px) {
+  .intro {
+    top: 17%;
+  }
+  .intro h1 {
+    font-size: 58px;
+  }
+  .intro p {
+    font-size: 11.5px;
+  }
+  .landmark-info {
+    top: 112px;
+    max-height: 46vh;
+    overflow: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
