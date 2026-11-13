@@ -84,5 +84,12 @@ Use `CHROME_PATH` if Chrome is not at `/Applications/Google Chrome.app/Contents/
 - Single-file build: `dist-single/index.html`.
 - Pages-ready copy: `docs/index.html` (+ `.nojekyll`).
 - Screenshots: `shots/overview-day.png`, `overview-night.png`, `landmark-*.png`, `embed-345.png`.
-- No remote is configured in this checkout; publishing is a separate step. If a public URL is added,
-  record it here and in the README.
+- Remote: https://github.com/somphol/tokyo-miniature (public, branch `main`).
+- Pages source: `main / docs`; live URL: https://somphol.github.io/tokyo-miniature/.
+- Rebuild and publish with:
+
+  ~~~sh
+  npm run build:single
+  cp dist-single/index.html docs/index.html
+  git add -A && git commit -m "Update build" && git push
+  ~~~

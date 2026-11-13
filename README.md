@@ -6,6 +6,10 @@ bank, the bay and Odaiba to the south, a green Yamanote loop, and eight landmark
 Built from scratch with React, TypeScript and three.js. The published artifact is one offline HTML
 file with no external assets, fonts or requests.
 
+- Repository: <https://github.com/somphol/tokyo-miniature>
+- Live: <https://somphol.github.io/tokyo-miniature/>
+- Single file: [`dist-single/index.html`](dist-single/index.html) (built locally, not committed)
+
 ## What is in the tray
 
 - **Geography:** Tokyo Bay, the Sumida River with five crossings, the Imperial Palace moat, Odaiba,
@@ -77,8 +81,8 @@ vehicles, copy and tests are not a reskin of another city. See `CITY.md` for the
 
 ## Hosting
 
-The single file is `dist-single/index.html`. A Pages-ready copy lives in `docs/index.html` with
-`.nojekyll`; point Pages at `main / docs`.
+The single file is `dist-single/index.html`. The published copy lives in `docs/index.html` with
+`.nojekyll`; Pages serves `main / docs` at <https://somphol.github.io/tokyo-miniature/>.
 
 ## Credits
 
