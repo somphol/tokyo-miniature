@@ -8,7 +8,7 @@ file with no external assets, fonts or requests.
 
 - Repository: <https://github.com/somphol/tokyo-miniature>
 - Live: <https://somphol.github.io/tokyo-miniature/>
-- Single file: [`dist-single/index.html`](dist-single/index.html) (built locally, not committed)
+- Build locally: `npm run build:single` → `dist-single/index.html` (not committed)
 
 ## What is in the tray
 
